@@ -77,48 +77,61 @@ public:
 
     // Delete first element
     void pop_front() { //мб объединить до одного
-        if (get_size() == 1) {
-            delete head;
-            head = tail = NULL;
-            size--;
-        }
+        try {
+            if (get_size() == 1) {
+                delete head;
+                head = tail = NULL;
+                size--;
+            }
 
-        else if (get_size() > 1) {
-            Item* item = head->next;
-            delete head;
-            head = item;
-            head->prev = NULL;
-            size--;
+            else if (get_size() > 1) {
+                Item* item = head->next;
+                delete head;
+                head = item;
+                head->prev = NULL;
+                size--;
+            }
         }
-        else if (isEmpty()) throw "List is empty. First element cannot be deleted\n";
+        catch (const std::exception& exception) {
+            throw exception;
+        }
     }
 
     // Delete last element
     void pop_back() {
-        if (get_size() == 1) {
-            delete head;
-            head = tail = NULL;
-            size--;
+        try {
+            if (get_size() == 1) {
+                delete head;
+                head = tail = NULL;
+                size--;
+            }
+            if (get_size() > 1) {
+                Item* item = tail->prev;
+                delete tail;
+                tail = item;
+                tail->next = NULL;
+                size--;
+            }
         }
-        if (get_size() > 1) {
-            Item* item = tail->prev;
-            delete tail;
-            tail = item;
-            tail->next = NULL;
-            size--;
+
+        catch (const std::exception& exception) {
+            throw exception;
         }
-        if (isEmpty()) throw "List is empty. Last element cannot be deleted\n";
     }
     // Print element at user's position
     int at(size_t index) {
-        if (index < get_size() && index >= 0)
+        try {
             return getItem(index)->data;
-        else  throw "Index is out of range";
+        }
+
+        catch (const std::exception& exception) {
+            throw exception;
+        }
     }
 
     //Inserting an item into a list by index
     void insert(int data, size_t index) {
-        if (index <= get_size() && index >= 0) {
+        try {
             if (index == 0) push_front(data);
             else if (index == get_size()) push_back(data);
             else {
@@ -130,15 +143,19 @@ public:
                 size++;
             }
         }
-        else throw "Index is out of range";
+        catch (const std::exception& exception) {
+            throw exception;
+        }
     }
 
     //Replacing an element by index
     void set(size_t index, int data) {
-        if (index < get_size() && index >= 0) {
+        try {
             getItem(index)->data = data;
         }
-        else throw "Index is out of range";
+        catch (const std::exception& exception) {
+            throw exception;
+        }
     }
 
     //Returns the size of the list
@@ -152,7 +169,7 @@ public:
     }
     //Deleting a list item by index
     void remove(size_t index) {
-        if (index < get_size() && index >= 0) {
+        try {
             Item* item = getItem(index);
             if (get_size() == 1) {
                 delete item;
@@ -176,7 +193,9 @@ public:
             }
             size--;
         }
-        else throw "Index is out of range";
+        catch (const std::exception& exception) {
+            throw exception;
+        }
     }
     //Adding the passed list to the end of the current list
     void push_back(List& const list) {
