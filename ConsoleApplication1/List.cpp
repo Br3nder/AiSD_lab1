@@ -94,9 +94,9 @@ public:
     }
 
     // Delete last element
-    void pop_back() { //мб объединить до одного
+    void pop_back() {
         if (get_size() == 1) {
-            delete tail;
+            delete head;
             head = tail = NULL;
             size--;
         }
@@ -115,6 +115,8 @@ public:
             return getItem(index)->data;
         else  throw "Index is out of range";
     }
+
+    //Inserting an item into a list by index
     void insert(int data, size_t index) {
         if (index <= get_size() && index >= 0) {
             if (index == 0) push_front(data);
@@ -131,6 +133,7 @@ public:
         else throw "Index is out of range";
     }
 
+    //Replacing an element by index
     void set(size_t index, int data) {
         if (index < get_size() && index >= 0) {
             getItem(index)->data = data;
@@ -138,14 +141,16 @@ public:
         else throw "Index is out of range";
     }
 
+    //Returns the size of the list
     size_t get_size() const {
         return size;
     }
 
+    //Checking for list emptiness
     bool isEmpty() {
         return get_size() == 0;
     }
-
+    //Deleting a list item by index
     void remove(size_t index) {
         if (index < get_size() && index >= 0) {
             Item* item = getItem(index);
@@ -173,6 +178,7 @@ public:
         }
         else throw "Index is out of range";
     }
+    //Adding the passed list to the end of the current list
     void push_back(List& const list) {
         for (int i = 0; i < (int)list.get_size(); i++) {
             int data = list.at(i);
@@ -180,6 +186,7 @@ public:
         }
     }
 
+    //Deleting a list from memory
     void clear() {
         while (head != NULL) {
             Item* item = head->next;
@@ -190,5 +197,6 @@ public:
         size = 0;
     }
 
+    //Overloading the output operator
     friend std::ostream& operator<< (std::ostream& out, const List& list);
 };

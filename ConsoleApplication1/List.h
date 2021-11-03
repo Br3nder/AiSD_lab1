@@ -3,6 +3,7 @@
 #include <iostream>
 #include "List.cpp"
 
+//overloading the output operator
 std::ostream& operator<< (std::ostream& out, const List& list) {
 	if (list.get_size() == 0) std::cout << "List is empty\n";
 	else {
