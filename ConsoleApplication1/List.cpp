@@ -77,7 +77,7 @@ public:
 
     // Delete last element
     void pop_back() {
-        try {
+        if (!isEmpty()) {
             if (get_size() == 1) {
                 delete head;
                 head = tail = NULL;
@@ -91,15 +91,12 @@ public:
                 size--;
             }
         }
-
-        catch (const std::exception& exception) {
-            throw exception;
-        }
+        else throw std::invalid_argument("Index is out of range");
     }
 
     // Delete first element
     void pop_front() {
-        try {
+        if(!isEmpty()) {
             if (get_size() == 1) {
                 delete head;
                 head = tail = NULL;
@@ -114,14 +111,12 @@ public:
                 size--;
             }
         }
-        catch (const std::exception& exception) {
-            throw exception;
-        }
+        else throw std::invalid_argument("Index is out of range");
     }
 
     //Inserting an item into a list by index
     void insert(int data, size_t index) {
-        try {
+        if (index < get_size() && index >= 0) {
             if (index == 0) push_front(data);
             else if (index == get_size()) push_back(data);
             else {
@@ -133,24 +128,19 @@ public:
                 size++;
             }
         }
-        catch (const std::exception& exception) {
-            throw exception;
-        }
+        else throw std::invalid_argument("Index is out of range");
     }
 
     // Print element at user's position
     int at(size_t index) {
-        try {
+        if (index < get_size() && index >= 0) {
             return getItem(index)->data;
         }
-
-        catch (const std::exception& exception) {
-            throw exception;
-        }
+        else throw std::invalid_argument("Index is out of range");
     }
     //Deleting a list item by index
     void remove(size_t index) {
-        try {
+        if (index < get_size() && index >= 0) {
             Item* item = getItem(index);
             if (get_size() == 1) {
                 delete item;
@@ -174,13 +164,13 @@ public:
             }
             size--;
         }
-        catch (const std::exception& exception) {
-            throw exception;
-        }
+        else throw std::invalid_argument("Index is out of range");
     }
     //Returns the size of the list
     size_t get_size() const {
-        return size;
+        if(size>=0)
+            return size;
+        else throw std::logic_error("Index is out of range");
     }
 
     //Deleting a list from memory
@@ -196,12 +186,10 @@ public:
 
     //Replacing an element by index
     void set(size_t index, int data) {
-        try {
+        if(index<get_size()&&index>=0) {
             getItem(index)->data = data;
         }
-        catch (const std::exception& exception) {
-            throw exception;
-        }
+        else throw std::invalid_argument("Index is out of range");
     }
 
     //Checking for list emptiness
